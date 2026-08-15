@@ -109,6 +109,7 @@ export default async function HomePage() {
             )}
             fill
             loading="eager"
+            fetchPriority="high"
             sizes="100vw"
             className="object-cover object-[62%_center] opacity-80 lg:object-center"
           />
@@ -226,7 +227,7 @@ export default async function HomePage() {
 
         {isVisible("why_hugos") && (
           <section
-            className="bg-cocoa text-cream py-20 sm:py-24"
+            className="home-section-deferred bg-cocoa text-cream py-20 sm:py-24"
             style={{ order: displayOrder("why_hugos", 3) }}
           >
             <div className="container-shell">
@@ -590,7 +591,7 @@ export default async function HomePage() {
 
         {isVisible("location") && (
           <section
-            className="py-20 sm:py-28"
+            className="home-section-deferred py-20 sm:py-28"
             style={{ order: displayOrder("location", 9) }}
           >
             <div className="container-shell">
@@ -661,7 +662,7 @@ export default async function HomePage() {
 
         {isVisible("social") && (
           <section
-            className="bg-gold/15 py-16"
+            className="home-section-deferred bg-gold/15 py-16"
             style={{ order: displayOrder("social", 10) }}
           >
             <div className="container-shell flex flex-col items-center justify-between gap-7 text-center md:flex-row md:text-left">
@@ -703,7 +704,7 @@ export default async function HomePage() {
 
         {isVisible("final_cta") && (
           <section
-            className="bg-cocoa text-cream py-20 text-center"
+            className="home-section-deferred bg-cocoa text-cream py-20 text-center"
             style={{ order: displayOrder("final_cta", 11) }}
           >
             <div className="container-shell">

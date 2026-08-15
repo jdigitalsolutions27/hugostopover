@@ -25,6 +25,7 @@ export function PageHero({
         alt={sectionImageAlt(section, fallbackImageAlt)}
         fill
         loading="eager"
+        fetchPriority="high"
         sizes="100vw"
         className="-z-30 object-cover object-[62%_center] lg:object-center"
       />

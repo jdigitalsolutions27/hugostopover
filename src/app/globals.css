@@ -148,6 +148,13 @@ a {
   padding-inline-end: 1rem;
 }
 
+@supports (content-visibility: auto) {
+  .home-section-deferred {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 900px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
