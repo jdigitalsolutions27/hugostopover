@@ -108,8 +108,7 @@ export default async function HomePage() {
               "La Paz Batchoy, buko pie, halo-halo, and Filipino kakanin on a warm table",
             )}
             fill
-            loading="eager"
-            fetchPriority="high"
+            preload
             sizes="100vw"
             className="object-cover object-[62%_center] opacity-80 lg:object-center"
           />

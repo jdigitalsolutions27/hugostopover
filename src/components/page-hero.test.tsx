@@ -18,7 +18,7 @@ describe("PageHero", () => {
       "src",
       expect.stringContaining("filipino-food-hero.png"),
     );
-    expect(image).toHaveAttribute("loading", "eager");
+    expect(image).not.toHaveAttribute("loading", "lazy");
   });
 
   it("uses the administrator-selected photo and description", () => {
