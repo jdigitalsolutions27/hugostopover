@@ -189,7 +189,7 @@ export const seedProducts: Product[] = Object.entries(
       category,
       main_image_url:
         name === "Authentic Iloilo La Paz Batchoy"
-          ? "/images/filipino-food-hero.png"
+          ? "/images/filipino-food-story.webp"
           : null,
       images: [],
       price: draftPricesBySlug[slugify(name)] ?? null,
@@ -312,7 +312,7 @@ export const seedPageSections: PageSection[] = [
     eyebrow: "A warm Leyte welcome",
     heading: "Good food makes every journey better",
     body: "Hugo’s Stop Over brings comforting Filipino flavors together in one friendly roadside destination. This is draft story copy awaiting the owner’s official history.",
-    image_url: "/images/filipino-food-hero.png",
+    image_url: "/images/filipino-food-story.webp",
     primary_cta_label: "Discover Our Story",
     primary_cta_url: "/about",
     secondary_cta_label: "",
@@ -331,7 +331,7 @@ export const seedPageSections: PageSection[] = [
     eyebrow: "Our story",
     heading: "A place to pause, eat well, and bring something home",
     body: "Draft for owner review: Hugo’s Stop Over is a welcoming food stop near the Sta. Fe–Alangalang boundary, serving comforting meals, merienda, desserts, and pasalubong. Replace this text with the business’s official founding story and the people behind it.",
-    image_url: "/images/filipino-food-hero.png",
+    image_url: "/images/filipino-food-story.webp",
     primary_cta_label: "Plan Your Visit",
     primary_cta_url: "/visit",
     secondary_cta_label: "",

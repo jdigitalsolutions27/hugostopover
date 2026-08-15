@@ -2,6 +2,7 @@ export const FACEBOOK_URL =
   "https://www.facebook.com/profile.php?id=61557086043030";
 export const MESSENGER_URL = "https://m.me/61557086043030";
 export const DEFAULT_HERO_IMAGE = "/images/filipino-food-hero.png";
+export const DEFAULT_STORY_IMAGE = "/images/filipino-food-story.webp";
 export const PHONE_DISPLAY = "(0954) 980 9670";
 export const PHONE_HREF = "+639549809670";
 export const SITE_NAME = "Hugo’s Stop Over";

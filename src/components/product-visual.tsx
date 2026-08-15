@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { CATEGORY_ART, DEFAULT_HERO_IMAGE } from "@/lib/constants";
+import { CATEGORY_ART } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
 export function ProductVisual({
@@ -32,9 +32,7 @@ export function ProductVisual({
           src={imageUrl}
           alt={name}
           fill
-          loading={
-            priority || imageUrl === DEFAULT_HERO_IMAGE ? "eager" : "lazy"
-          }
+          loading={priority ? "eager" : "lazy"}
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           className="object-cover transition duration-700 group-hover:scale-[1.04]"
         />

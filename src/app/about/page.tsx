@@ -7,7 +7,7 @@ import { PageHero } from "@/components/page-hero";
 import { Button } from "@/components/ui/button";
 import { getPageMeta, getPageSections } from "@/data/repository";
 import { sectionImageAlt } from "@/lib/content";
-import { DEFAULT_HERO_IMAGE } from "@/lib/constants";
+import { DEFAULT_STORY_IMAGE } from "@/lib/constants";
 import { hasSupabaseConfig } from "@/lib/supabase/config";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -55,18 +55,13 @@ export default async function AboutPage() {
           <div className="container-shell grid items-center gap-12 lg:grid-cols-2">
             <div className="relative mx-auto aspect-[4/3] w-full max-w-3xl overflow-hidden rounded-[1.5rem] shadow-[0_24px_64px_rgba(58,36,24,.14)] sm:aspect-[16/10] sm:rounded-[2rem] lg:aspect-[4/5] lg:max-w-none lg:shadow-[0_30px_80px_rgba(58,36,24,.16)]">
               <Image
-                src={story?.image_url || DEFAULT_HERO_IMAGE}
+                src={story?.image_url || DEFAULT_STORY_IMAGE}
                 alt={sectionImageAlt(
                   story,
                   "A Filipino food spread representing Hugo’s Stop Over",
                 )}
                 fill
-                loading={
-                  (story?.image_url || DEFAULT_HERO_IMAGE) ===
-                  DEFAULT_HERO_IMAGE
-                    ? "eager"
-                    : "lazy"
-                }
+                loading="lazy"
                 sizes="(max-width: 768px) 100vw, (max-width: 1024px) 768px, 50vw"
                 className="object-cover object-[62%_58%] lg:object-[68%_center]"
               />

@@ -19,7 +19,11 @@ import { ProductCard } from "@/components/product-card";
 import { MotionReveal } from "@/components/motion-reveal";
 import { SectionHeading } from "@/components/section-heading";
 import { Button } from "@/components/ui/button";
-import { CATEGORY_ART, DEFAULT_HERO_IMAGE } from "@/lib/constants";
+import {
+  CATEGORY_ART,
+  DEFAULT_HERO_IMAGE,
+  DEFAULT_STORY_IMAGE,
+} from "@/lib/constants";
 import { sectionImageAlt, sectionSetting } from "@/lib/content";
 import { hasSupabaseConfig } from "@/lib/supabase/config";
 import { safeMapEmbedUrl } from "@/lib/utils";
@@ -420,18 +424,13 @@ export default async function HomePage() {
               <MotionReveal>
                 <div className="relative mx-auto aspect-[4/5] max-w-md overflow-hidden rounded-[2rem] shadow-[0_28px_80px_rgba(58,36,24,.18)]">
                   <Image
-                    src={about?.image_url || DEFAULT_HERO_IMAGE}
+                    src={about?.image_url || DEFAULT_STORY_IMAGE}
                     alt={sectionImageAlt(
                       about,
                       `Filipino food served at ${settings.business_name}`,
                     )}
                     fill
-                    loading={
-                      (about?.image_url || DEFAULT_HERO_IMAGE) ===
-                      DEFAULT_HERO_IMAGE
-                        ? "eager"
-                        : "lazy"
-                    }
+                    loading="lazy"
                     sizes="(max-width: 1024px) 90vw, 40vw"
                     className="object-cover object-[70%_center]"
                   />
@@ -474,20 +473,14 @@ export default async function HomePage() {
                     src={
                       promotion?.image_url ||
                       sectionConfig("promotion")?.image_url ||
-                      DEFAULT_HERO_IMAGE
+                      DEFAULT_STORY_IMAGE
                     }
                     alt={sectionImageAlt(
                       sectionConfig("promotion"),
                       "Featured promotion",
                     )}
                     fill
-                    loading={
-                      (promotion?.image_url ||
-                        sectionConfig("promotion")?.image_url ||
-                        DEFAULT_HERO_IMAGE) === DEFAULT_HERO_IMAGE
-                        ? "eager"
-                        : "lazy"
-                    }
+                    loading="lazy"
                     sizes="100vw"
                     className="object-cover opacity-20"
                   />
