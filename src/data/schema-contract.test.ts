@@ -25,6 +25,10 @@ const presentation = readFileSync(
   "utf8",
 );
 const adminActions = readFileSync(resolve("src/actions/admin.ts"), "utf8");
+const invitationSender = readFileSync(
+  resolve("src/lib/supabase/invite.ts"),
+  "utf8",
+);
 
 describe("database and seed contract", () => {
   it("contains every requested product exactly once", () => {
@@ -61,6 +65,9 @@ describe("database and seed contract", () => {
     expect(adminRoles).not.toContain(
       'create policy "staff manage administrator invitations"',
     );
+    expect(invitationSender).toContain('flowType: "implicit"');
+    expect(invitationSender).toContain("/admin/accept-invite");
+    expect(invitationSender).toContain("persistSession: false");
   });
   it("seeds uniform editable photo heroes and retires Gallery safely", () => {
     expect(presentation).toContain("page_slug in ('menu', 'about', 'visit')");

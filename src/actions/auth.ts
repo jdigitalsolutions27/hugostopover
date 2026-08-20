@@ -126,6 +126,7 @@ export async function resetPasswordAction(
       message:
         "The reset link may have expired. Request a new one and try again.",
     };
+  await supabase.rpc("accept_admin_invitation");
   return {
     status: "success",
     message: "Password updated. You can now open the dashboard.",

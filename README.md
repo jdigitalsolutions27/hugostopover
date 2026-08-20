@@ -102,7 +102,7 @@ Do not hard-code credentials and do not add a service-role key to the website.
    ```
 
 3. Sign in at `/admin/login`, use **Forgot password** if the user was invited, and set a unique password of at least 12 characters.
-4. For later administrators, sign in as an Owner and open **Team access**. Enter the person’s email, choose Staff, Editor, or Owner, and send the invitation. The recipient verifies the email through Supabase and sets a password. Owners can revoke a pending invitation or disable the resulting account.
+4. For later administrators, sign in as an Owner and open **Team access**. Enter the person’s email, choose Staff, Editor, or Owner, and send the invitation. The recipient opens the Supabase email, the site verifies the owner-approved invitation at `/admin/accept-invite`, and the recipient creates a private password before opening the dashboard. Owners can revoke a pending invitation or disable the resulting account. If an invitation created before this recipient-safe flow fails, send a new invitation to the same email to replace the old link.
 
 ## Database and security model
 
@@ -178,7 +178,7 @@ Playwright covers public conversion content, menu search/detail visibility, cont
 - **Upload rejected:** use JPEG/PNG/WebP/AVIF below 5 MB; renaming a non-image extension will not bypass binary validation.
 - **Inquiry returns 503 locally:** connect Supabase. The fallback intentionally does not pretend to persist submissions.
 - **Password email does not arrive:** verify Supabase SMTP/Auth email settings and allowed redirect URLs; the UI intentionally never confirms whether an email exists.
-- **Administrator invite fails:** confirm Auth allows new users, the local/production `/auth/callback` URL is allowed, and Supabase’s email rate limit has not been reached. Production should use configured custom SMTP for reliable delivery.
+- **Administrator invite fails:** confirm Auth allows new users, the local/production `/admin/accept-invite` URL is allowed, and Supabase’s email rate limit has not been reached. The redirect allowlist may use `https://YOUR_DOMAIN/**` to cover both invitation acceptance and password recovery. Production should use configured custom SMTP for reliable delivery. Resend invitations created before the current recipient-safe flow.
 - **Build font/network issue:** retry with network access so `next/font` can resolve Fraunces and Manrope, or self-host those fonts if the build environment is offline.
 - **Migration category delete error:** reassign or archive referenced products first.
 

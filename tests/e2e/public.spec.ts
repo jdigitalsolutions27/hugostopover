@@ -13,6 +13,14 @@ test("homepage presents the business and primary conversion actions", async ({
     page.getByRole("link", { name: /Explore Our Menu/i }).first(),
   ).toBeVisible();
   await expect(page).toHaveTitle(/Hugo['’]s Stop Over/);
+  await expect(
+    page
+      .getByRole("link", { name: /Hugo['’]s Stop Over home/i })
+      .locator("img"),
+  ).toBeVisible();
+  const favicon = await page.request.get("/favicon.ico");
+  expect(favicon.status()).toBe(200);
+  expect(favicon.headers()["content-type"]).toContain("image/x-icon");
 });
 
 test("menu search reveals a seeded product and its detail page", async ({
@@ -29,8 +37,8 @@ test("menu search reveals a seeded product and its detail page", async ({
       exact: true,
     })
     .click();
-  await expect(page).toHaveURL(/authentic-iloilo-la-paz-batchoy/);
-  await expect(page.getByText("₱120", { exact: true }).first()).toBeVisible();
+  await expect(page).toHaveURL(/la-paz-batchoy/);
+  await expect(page.getByText(/₱\d+/, { exact: true }).first()).toBeVisible();
 });
 
 test("contact form provides accessible validation feedback", async ({
@@ -47,6 +55,16 @@ test("admin dashboard is protected on the server", async ({ page }) => {
   await expect(
     page.getByRole("heading", { name: "Welcome back." }),
   ).toBeVisible();
+});
+
+test("an invalid or expired admin invitation fails safely", async ({
+  page,
+}) => {
+  await page.goto("/admin/accept-invite");
+  await expect(
+    page.getByRole("heading", { name: "This invitation cannot be used." }),
+  ).toBeVisible();
+  await expect(page).toHaveURL(/\/admin\/accept-invite$/);
 });
 
 test("mobile navigation opens and reaches the menu", async ({

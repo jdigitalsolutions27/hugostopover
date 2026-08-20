@@ -45,6 +45,17 @@ test("authorized owner can navigate every admin workspace", async ({
     ).toBe(false);
   }
 
+  await page.goto("/admin/products/new");
+  await expect(
+    page
+      .getByRole("navigation", { name: "Admin dashboard" })
+      .getByRole("link", { name: "Products" }),
+  ).toHaveAttribute("aria-current", "page");
+  await expect(page.getByText("Current page").first()).toBeVisible();
+  await expect(
+    page.getByText("Products", { exact: true }).first(),
+  ).toBeVisible();
+
   // Supabase sign-out can revoke other concurrent sessions for the same
   // temporary account, so exercise it once in the primary desktop project.
   if (testInfo.project.name === "chromium") {

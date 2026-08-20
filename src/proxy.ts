@@ -11,6 +11,7 @@ export async function proxy(request: NextRequest) {
     !path.startsWith("/admin/login") &&
     !path.startsWith("/admin/forgot-password") &&
     !path.startsWith("/admin/reset-password") &&
+    !path.startsWith("/admin/accept-invite") &&
     !user
   ) {
     const loginUrl = new URL("/admin/login", request.url);

@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import { assertAdmin } from "@/lib/auth";
 import { checkRateLimit } from "@/lib/rate-limit";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { sendAdminInvitationEmail } from "@/lib/supabase/invite";
 import {
   adminInvitationSchema,
   categorySchema,
@@ -12,7 +13,6 @@ import {
   type ActionState,
 } from "@/lib/validation";
 import {
-  absoluteUrl,
   safeLinkUrl,
   safeMapEmbedUrl,
   safeMediaUrl,
@@ -768,13 +768,9 @@ export async function inviteAdminUserAction(
       message: "The administrator invitation could not be created.",
     };
 
-  const { error: emailError } = await supabase.auth.signInWithOtp({
+  const { error: emailError } = await sendAdminInvitationEmail({
     email: parsed.data.email,
-    options: {
-      shouldCreateUser: true,
-      emailRedirectTo: absoluteUrl("/auth/callback?next=/admin/reset-password"),
-      data: { display_name: safeText(parsed.data.display_name, 100) },
-    },
+    displayName: safeText(parsed.data.display_name, 100),
   });
   if (emailError) {
     await supabase.rpc("revoke_admin_invitation", {

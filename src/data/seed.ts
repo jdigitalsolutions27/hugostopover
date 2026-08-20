@@ -220,8 +220,8 @@ export const seedProducts: Product[] = Object.entries(
 export const seedBusinessSettings: BusinessSettings = {
   business_name: "Hugo’s Stop Over",
   tagline: "Your Favorite Filipino Comfort Food Stopover",
-  logo_url: null,
-  favicon_url: null,
+  logo_url: "/images/hugo-official-logo.jpg",
+  favicon_url: "/images/hugo-official-logo.jpg",
   phone: "(0954) 980 9670",
   email: "",
   address: "Boundary of Sta. Fe and Alangalang, Leyte, Philippines",

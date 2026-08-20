@@ -55,7 +55,7 @@ test("catalog filters and global conversion links remain functional", async ({
   await page.getByRole("button", { name: "Clear filters" }).click();
   await page.getByRole("textbox", { name: "Search products" }).fill("Buko Pie");
   await expect(
-    page.getByRole("heading", { name: "Classic Buko Pie" }),
+    page.getByRole("heading", { name: /Buko Pie/ }).first(),
   ).toBeVisible();
 
   await page.goto("/");

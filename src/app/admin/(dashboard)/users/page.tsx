@@ -50,7 +50,9 @@ export default async function AdminUsersPage() {
         <span>
           <strong>Access rule:</strong> only Owners can invite people or change
           roles. Your own Owner role and active status are protected so you
-          cannot accidentally lock yourself out.
+          cannot accidentally lock yourself out. Every new recipient now
+          verifies the invitation and creates a private password before signing
+          in.
         </span>
       </div>
 

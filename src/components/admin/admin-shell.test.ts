@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { adminNavigationForRole } from "@/components/admin/admin-shell";
+import { isAdminRouteActive } from "@/components/admin/admin-navigation";
 
 describe("role-aware admin navigation", () => {
   it("limits Staff to operational catalog, media, and inquiry areas", () => {
@@ -22,5 +23,14 @@ describe("role-aware admin navigation", () => {
     expect(owner).toContain("/admin/settings");
     expect(editor).not.toContain("/admin/users");
     expect(editor).not.toContain("/admin/settings");
+  });
+
+  it("keeps the correct section active on nested admin routes", () => {
+    expect(isAdminRouteActive("/admin", "/admin")).toBe(true);
+    expect(isAdminRouteActive("/admin/products/new", "/admin/products")).toBe(
+      true,
+    );
+    expect(isAdminRouteActive("/admin/products/new", "/admin")).toBe(false);
+    expect(isAdminRouteActive("/admin/users", "/admin/users")).toBe(true);
   });
 });

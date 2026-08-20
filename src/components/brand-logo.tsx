@@ -1,6 +1,7 @@
 import Image from "next/image";
-import { Soup } from "lucide-react";
 import { cn, safeMediaUrl } from "@/lib/utils";
+
+const OFFICIAL_LOGO = "/images/hugo-official-logo.jpg";
 
 export function BrandLogo({
   compact = false,
@@ -13,25 +14,25 @@ export function BrandLogo({
   name?: string;
   logoUrl?: string | null;
 }) {
-  const imageUrl = safeMediaUrl(logoUrl);
+  const imageUrl = safeMediaUrl(logoUrl) || OFFICIAL_LOGO;
   return (
     <span
       className={cn("inline-flex items-center gap-2.5", className)}
       aria-label={name}
     >
-      <span className="bg-gold text-cocoa relative grid size-11 shrink-0 place-items-center overflow-hidden rounded-full shadow-[inset_0_0_0_2px_rgba(58,36,24,.16)]">
-        {imageUrl ? (
-          <Image
-            src={imageUrl}
-            alt=""
-            fill
-            sizes="44px"
-            className="object-cover"
-          />
-        ) : (
-          <Soup className="size-6" aria-hidden="true" />
+      <span
+        className={cn(
+          "border-gold/65 bg-cream relative grid shrink-0 place-items-center overflow-hidden rounded-full border-2 shadow-[0_5px_16px_rgba(58,36,24,.16)]",
+          compact ? "size-11" : "size-12",
         )}
-        <span className="bg-cocoa/15 absolute -bottom-1 h-2 w-7 rounded-[50%]" />
+      >
+        <Image
+          src={imageUrl}
+          alt=""
+          fill
+          sizes={compact ? "44px" : "48px"}
+          className="object-cover"
+        />
       </span>
       {!compact && (
         <span className="leading-none">

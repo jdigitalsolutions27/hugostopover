@@ -24,8 +24,9 @@ export function AdminInviteForm() {
             Send a secure invitation
           </h2>
           <p className="text-muted mt-2 max-w-2xl text-xs leading-5">
-            The recipient verifies their email through Supabase, then creates a
-            password. Access only becomes active for owner-approved addresses.
+            The recipient verifies their email through Supabase, then chooses
+            their own password. Access only becomes active for owner-approved
+            addresses.
           </p>
         </div>
       </div>
@@ -92,6 +93,11 @@ export function AdminInviteForm() {
           settings, destructive actions, and team management.
         </p>
       </div>
+
+      <p className="text-muted mt-4 text-xs leading-5">
+        If an earlier invitation link did not open the password page, submit the
+        same email again. The previous pending link will be replaced securely.
+      </p>
 
       {state.message && (
         <p

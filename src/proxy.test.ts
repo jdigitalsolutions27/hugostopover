@@ -22,4 +22,13 @@ describe("admin route protection", () => {
       "/admin/login?next=%2Fadmin%2Fproducts",
     );
   });
+  it("allows recipients to open the public invitation acceptance route", async () => {
+    delete process.env.NEXT_PUBLIC_SUPABASE_URL;
+    delete process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
+    const response = await proxy(
+      new NextRequest("http://localhost:3000/admin/accept-invite"),
+    );
+    expect(response.status).toBe(200);
+    expect(response.headers.get("location")).toBeNull();
+  });
 });

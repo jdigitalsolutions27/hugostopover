@@ -7,7 +7,12 @@ export default async function manifest(): Promise<MetadataRoute.Manifest> {
     getPageMeta("home"),
   ]);
   const name = settings.business_name || "Hugo’s Stop Over";
-  const icon = settings.favicon_url;
+  const icon = settings.favicon_url || "/images/hugo-official-logo.jpg";
+  const iconType = icon.toLowerCase().endsWith(".png")
+    ? "image/png"
+    : icon.toLowerCase().endsWith(".webp")
+      ? "image/webp"
+      : "image/jpeg";
   return {
     name,
     short_name: name.slice(0, 30),
@@ -16,8 +21,6 @@ export default async function manifest(): Promise<MetadataRoute.Manifest> {
     display: "standalone",
     background_color: settings.brand_colors.cream || "#FFF8E9",
     theme_color: settings.brand_colors.cocoa || "#3A2418",
-    icons: icon
-      ? [{ src: icon, sizes: "any", type: "image/png" }]
-      : [{ src: "/favicon.ico", sizes: "any", type: "image/x-icon" }],
+    icons: [{ src: icon, sizes: "512x512", type: iconType }],
   };
 }
