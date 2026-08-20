@@ -30,6 +30,7 @@ export function BrandLogo({
           src={imageUrl}
           alt=""
           fill
+          loading="eager"
           sizes={compact ? "44px" : "48px"}
           className="object-cover"
         />
