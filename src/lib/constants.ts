@@ -7,13 +7,14 @@ export const PHONE_DISPLAY = "(0954) 980 9670";
 export const PHONE_HREF = "+639549809670";
 export const SITE_NAME = "Hugo’s Stop Over";
 export const SITE_DESCRIPTION =
-  "Filipino comfort food, freshly baked pies, kakanin, cold desserts, and Leyte pasalubong near the Sta. Fe–Alangalang boundary.";
+  "Visit Hugo’s Stop Over near Sta. Fe and Alangalang, Leyte for Filipino meals, buko pie, kakanin, desserts, refreshments, and pasalubong.";
 
 export const NAV_ITEMS = [
   { href: "/", label: "Home" },
   { href: "/menu", label: "Menu" },
   { href: "/about", label: "Our Story" },
   { href: "/visit", label: "Visit Us" },
+  { href: "/food-stop-over-leyte", label: "Leyte Food Stop" },
 ] as const;
 
 export const CATEGORY_ART: Record<string, { emoji: string; tone: string }> = {

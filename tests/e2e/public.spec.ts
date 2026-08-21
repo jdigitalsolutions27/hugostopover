@@ -113,3 +113,37 @@ test("secondary pages use photo heroes and Gallery is retired", async ({
     page.getByRole("heading", { name: /This stop isn['’]t on the menu/i }),
   ).toBeVisible();
 });
+
+test("Leyte food-stop page is discoverable and publishes exact local SEO data", async ({
+  page,
+}) => {
+  await page.goto("/food-stop-over-leyte");
+  await expect(
+    page.getByRole("heading", {
+      name: /A Filipino food stop over in Leyte worth the pause/i,
+    }),
+  ).toBeVisible();
+  await expect(page).toHaveTitle(/Food Stop Over in Leyte/i);
+  await expect(
+    page.getByRole("link", { name: "Leyte Food Stop" }).first(),
+  ).toHaveAttribute("href", "/food-stop-over-leyte");
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth > window.innerWidth + 1,
+    ),
+  ).toBe(false);
+
+  const schemas = await page
+    .locator('script[type="application/ld+json"]')
+    .allTextContents();
+  const localBusiness = schemas
+    .map((value) => JSON.parse(value))
+    .find((value: { "@type"?: string }) => value["@type"] === "Restaurant");
+  expect(localBusiness).toMatchObject({
+    geo: { latitude: 11.1868, longitude: 124.912317 },
+    address: { addressLocality: "Alangalang", addressRegion: "Leyte" },
+  });
+
+  const sitemap = await page.request.get("/sitemap.xml");
+  expect(await sitemap.text()).toContain("/food-stop-over-leyte</loc>");
+});

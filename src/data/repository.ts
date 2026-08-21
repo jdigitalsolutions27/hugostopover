@@ -149,9 +149,9 @@ export const getPageSections = cache(
 export const getPageMeta = cache(async (slug: string) => {
   const defaults: Record<string, { title: string; description: string }> = {
     home: {
-      title: "Hugo’s Stop Over | Filipino Food & Pasalubong in Leyte",
+      title: "Hugo’s Stop Over | Filipino Food Stop Over in Leyte",
       description:
-        "Filipino comfort food and pasalubong near Sta. Fe and Alangalang, Leyte.",
+        "Visit Hugo’s Stop Over near Sta. Fe and Alangalang, Leyte for Filipino meals, buko pie, kakanin, desserts, refreshments, and pasalubong.",
     },
     menu: {
       title: "Menu & Pasalubong",
@@ -166,6 +166,11 @@ export const getPageMeta = cache(async (slug: string) => {
       title: "Visit & Contact",
       description:
         "Find hours, directions, contact information, and the inquiry form for Hugo’s Stop Over.",
+    },
+    "food-stop-over-leyte": {
+      title: "Food Stop Over in Leyte | Filipino Meals & Pasalubong",
+      description:
+        "Visit Hugo’s Stop Over in Alangalang, Leyte for Filipino meals, kakanin, pies, desserts, refreshments, and local pasalubong favorites.",
     },
   };
   const fallback = defaults[slug] ?? {

@@ -24,13 +24,22 @@ type PageRow = {
   status: "draft" | "published" | "archived";
 };
 
-const pageOrder = ["home", "menu", "product", "about", "visit", "global"];
+const pageOrder = [
+  "home",
+  "menu",
+  "product",
+  "about",
+  "visit",
+  "food-stop-over-leyte",
+  "global",
+];
 const pageLabels: Record<string, string> = {
   home: "Homepage",
   menu: "Menu",
   product: "Product page",
   about: "About",
   visit: "Visit & contact",
+  "food-stop-over-leyte": "Leyte food stop",
   global: "Header & footer",
 };
 const previewPaths: Record<string, string> = {
@@ -39,6 +48,7 @@ const previewPaths: Record<string, string> = {
   product: "/menu",
   about: "/about",
   visit: "/visit",
+  "food-stop-over-leyte": "/food-stop-over-leyte",
   global: "/",
 };
 

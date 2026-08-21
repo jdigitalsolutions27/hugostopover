@@ -23,10 +23,16 @@ import {
   CATEGORY_ART,
   DEFAULT_HERO_IMAGE,
   DEFAULT_STORY_IMAGE,
+  SITE_DESCRIPTION,
 } from "@/lib/constants";
 import { sectionImageAlt, sectionSetting } from "@/lib/content";
 import { hasSupabaseConfig } from "@/lib/supabase/config";
 import { safeMapEmbedUrl } from "@/lib/utils";
+import {
+  buildLocalBusinessJsonLd,
+  buildWebsiteJsonLd,
+  serializeJsonLd,
+} from "@/lib/seo";
 import {
   getBusinessSettings,
   getCategories,
@@ -76,23 +82,10 @@ export default async function HomePage() {
   const phoneHref = settings.phone.replace(/[^\d+]/g, "");
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "Restaurant",
-    name: settings.business_name,
-    image: settings.default_seo_image,
-    telephone: settings.phone,
-    servesCuisine: "Filipino",
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: settings.address,
-      addressRegion: "Leyte",
-      addressCountry: "PH",
-    },
-    url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
-    sameAs: [settings.facebook_url],
-    openingHours: settings.opening_hours.map(
-      (item) => `${item.days} ${item.hours}`,
-    ),
-    priceRange: "₱",
+    "@graph": [
+      buildLocalBusinessJsonLd(settings, SITE_DESCRIPTION),
+      buildWebsiteJsonLd(settings),
+    ],
   };
 
   return (
@@ -100,7 +93,7 @@ export default async function HomePage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+          __html: serializeJsonLd(jsonLd),
         }}
       />
       {isVisible("hero") && (

@@ -60,6 +60,7 @@ Open `http://localhost:3000`. Fill `.env.local` before testing admin functionali
 | `NEXT_PUBLIC_SUPABASE_URL`             | Production/admin           | Supabase Project URL                                       |
 | `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | Production/admin           | Supabase publishable key; access remains restricted by RLS |
 | `NEXT_PUBLIC_SITE_URL`                 | Production                 | Canonical origin, e.g. `https://hugosstopover.com`         |
+| `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` | Optional                   | Search Console HTML-tag verification token                 |
 | `SERVER_ACTION_ALLOWED_ORIGINS`        | Only behind a custom proxy | Reserved list of proxy/CDN origins                         |
 
 Never expose or commit `SUPABASE_SERVICE_ROLE_KEY`. This application does not require it at runtime. `.env*` is ignored except for the safe `.env.example` template.
@@ -162,6 +163,33 @@ Playwright covers public conversion content, menu search/detail visibility, cont
 5. Add the final Vercel/custom domains to Supabase Auth redirect URLs.
 6. Deploy, sign in, replace the generated/local placeholder image with owner-approved photography, confirm every dashboard review flag, and submit a real test inquiry.
 7. Run Lighthouse against the production URL in an incognito window. Image-heavy scores depend on replacing uploads with correctly cropped, compressed WebP/AVIF owner photos.
+
+## Local SEO and search indexing
+
+The site publishes canonical metadata, crawl rules, an XML sitemap, a specific
+Leyte food-stop landing page, exact geographic structured data, and editable
+local-business content. These signals help search engines understand the
+business, but no website can guarantee a particular Google position.
+
+After deployment, the business owner should:
+
+1. Create or open a Google Search Console **Domain property** for
+   `hugostopover.com` and verify it with the DNS TXT record Google supplies.
+2. Submit `https://hugostopover.com/sitemap.xml` in Search Console, then inspect
+   and request indexing for `/`, `/food-stop-over-leyte`, `/menu`, and `/visit`.
+3. Claim and verify the Hugo's Stop Over Google Business Profile. Keep its name,
+   category, exact pin, phone, hours, website, and menu URL consistent with the
+   website.
+4. Add recent owner-approved food, storefront, signboard, and interior photos to
+   both the website and Business Profile. Update changed hours promptly.
+5. Ask real customers for honest Google reviews without incentives or prepared
+   wording, and reply professionally. Never create or purchase reviews.
+6. Seek relevant, genuine links and mentions from Leyte tourism, local business,
+   community, and supplier sites. Avoid bulk directory or paid-link schemes.
+
+Search Console discovery and ranking changes are not immediate. Monitor its
+Indexing and Performance reports instead of repeatedly changing titles or
+stuffing pages with the same phrase.
 
 ## Backup and restore
 

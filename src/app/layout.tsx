@@ -28,6 +28,8 @@ export async function generateMetadata(): Promise<Metadata> {
     safeMediaUrl(settings.default_seo_image) ||
     "/images/filipino-food-hero.png";
   const favicon = safeMediaUrl(settings.favicon_url);
+  const googleVerification =
+    process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION?.trim();
   return {
     metadataBase: new URL(absoluteUrl()),
     title: {
@@ -59,6 +61,9 @@ export async function generateMetadata(): Promise<Metadata> {
       description: homeMeta.description || SITE_DESCRIPTION,
       images: [image],
     },
+    verification: googleVerification
+      ? { google: googleVerification }
+      : undefined,
   };
 }
 
