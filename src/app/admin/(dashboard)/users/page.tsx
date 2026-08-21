@@ -1,6 +1,15 @@
-import { Clock3, ShieldAlert, UserCog, UserRoundX } from "lucide-react";
 import {
+  Clock3,
+  RotateCcw,
+  ShieldAlert,
+  UserCog,
+  UserRoundCheck,
+  UserRoundX,
+} from "lucide-react";
+import {
+  removeAdminUserAction,
   revokeAdminInvitationAction,
+  restoreAdminUserAction,
   updateAdminUserAction,
 } from "@/actions/admin";
 import { AdminInviteForm } from "@/components/admin/admin-invite-form";
@@ -36,13 +45,15 @@ export default async function AdminUsersPage() {
   ]);
   const profiles = (profileResult.data ?? []) as ProfileRow[];
   const invitations = (invitationResult.data ?? []) as AdminInvitation[];
+  const activeProfiles = profiles.filter((profile) => profile.is_active);
+  const removedProfiles = profiles.filter((profile) => !profile.is_active);
 
   return (
     <div className="mx-auto max-w-6xl">
       <AdminPageHeader
         eyebrow="Owner-only"
         title="Team access"
-        description="Invite administrators, assign a least-privilege role, and disable access without deleting authentication records."
+        description="Invite administrators, assign least-privilege roles, and remove or restore dashboard access safely."
       />
 
       <div className="border-gold/30 bg-gold/10 text-cocoa mb-6 flex gap-3 rounded-xl border p-4 text-xs leading-5">
@@ -52,7 +63,8 @@ export default async function AdminUsersPage() {
           roles. Your own Owner role and active status are protected so you
           cannot accidentally lock yourself out. Every new recipient now
           verifies the invitation and creates a private password before signing
-          in.
+          in. Removed accounts lose access immediately but remain in the audit
+          history and can be restored.
         </span>
       </div>
 
@@ -110,13 +122,14 @@ export default async function AdminUsersPage() {
           </h2>
         </div>
         <div className="space-y-4">
-          {profiles.map((profile) => (
+          {activeProfiles.map((profile) => (
             <form
               key={profile.id}
               action={updateAdminUserAction}
-              className="paper-card grid gap-4 p-5 sm:grid-cols-[1.1fr_1.2fr_160px_auto_auto] sm:items-end"
+              className="paper-card grid gap-4 p-5 sm:grid-cols-[1.1fr_1.2fr_160px_auto] sm:items-end"
             >
               <input type="hidden" name="id" value={profile.id} />
+              <input type="hidden" name="is_active" value="true" />
               <label>
                 <span className="text-cocoa mb-1.5 block text-xs font-bold">
                   Display name
@@ -152,27 +165,69 @@ export default async function AdminUsersPage() {
                   <input type="hidden" name="role" value={profile.role} />
                 )}
               </label>
-              <label className="text-cocoa flex min-h-11 items-center gap-2 text-xs font-bold">
-                <input
-                  type="checkbox"
-                  name="is_active"
-                  defaultChecked={profile.is_active}
-                  disabled={profile.id === current.id}
-                  className="accent-[#72457A]"
-                />
-                {profile.id === current.id && (
-                  <input type="hidden" name="is_active" value="true" />
+              <div className="flex flex-wrap gap-2">
+                <Button type="submit" size="sm">
+                  <UserCog className="size-4" />
+                  Save
+                </Button>
+                {profile.id !== current.id && (
+                  <ConfirmButton
+                    type="submit"
+                    formAction={removeAdminUserAction}
+                    variant="outline"
+                    size="sm"
+                    className="border-danger/25 text-danger hover:bg-danger/10"
+                    message={`Remove dashboard access for ${profile.email || profile.display_name}? They will be signed out of protected areas and can be restored later.`}
+                  >
+                    <UserRoundX className="size-4" />
+                    Remove access
+                  </ConfirmButton>
                 )}
-                Active
-              </label>
-              <Button type="submit" size="sm">
-                <UserCog className="size-4" />
-                Save
-              </Button>
+              </div>
             </form>
           ))}
         </div>
       </section>
+
+      {removedProfiles.length > 0 && (
+        <section className="mt-8">
+          <div className="mb-4">
+            <p className="eyebrow">Access removed</p>
+            <h2 className="font-display text-cocoa mt-1 text-2xl font-bold">
+              Removed accounts
+            </h2>
+            <p className="text-muted mt-2 max-w-2xl text-xs leading-5">
+              These accounts cannot enter the dashboard or use protected data.
+              Restore only when access is required again.
+            </p>
+          </div>
+          <div className="grid gap-4 md:grid-cols-2">
+            {removedProfiles.map((profile) => (
+              <article
+                key={profile.id}
+                className="paper-card flex items-center justify-between gap-4 p-5"
+              >
+                <div className="min-w-0">
+                  <p className="text-cocoa flex items-center gap-2 truncate text-sm font-extrabold">
+                    <UserRoundCheck className="text-muted size-4" />
+                    {profile.display_name || profile.email}
+                  </p>
+                  <p className="text-muted mt-1 truncate text-xs">
+                    {profile.email || "Email unavailable"} · {profile.role}
+                  </p>
+                </div>
+                <form action={restoreAdminUserAction}>
+                  <input type="hidden" name="id" value={profile.id} />
+                  <Button type="submit" variant="outline" size="sm">
+                    <RotateCcw className="size-4" />
+                    Restore
+                  </Button>
+                </form>
+              </article>
+            ))}
+          </div>
+        </section>
+      )}
     </div>
   );
 }

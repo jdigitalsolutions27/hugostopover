@@ -102,7 +102,7 @@ Do not hard-code credentials and do not add a service-role key to the website.
    ```
 
 3. Sign in at `/admin/login`, use **Forgot password** if the user was invited, and set a unique password of at least 12 characters.
-4. For later administrators, sign in as an Owner and open **Team access**. Enter the person’s email, choose Staff, Editor, or Owner, and send the invitation. The recipient opens the Supabase email, the site verifies the owner-approved invitation at `/admin/accept-invite`, and the recipient creates a private password before opening the dashboard. Owners can revoke a pending invitation or disable the resulting account. If an invitation created before this recipient-safe flow fails, send a new invitation to the same email to replace the old link.
+4. For later administrators, sign in as an Owner and open **Team access**. Enter the person’s email, choose Staff, Editor, or Owner, and send the invitation. The recipient opens the Supabase email, the site verifies the owner-approved invitation at `/admin/accept-invite`, and the recipient creates a private password before opening the dashboard. Owners can revoke a pending invitation, use **Remove access** to block an account immediately, and restore a removed account later. Removal is deliberately reversible and retains the audit record. If an invitation created before this recipient-safe flow fails, send a new invitation to the same email to replace the old link.
 
 ## Database and security model
 

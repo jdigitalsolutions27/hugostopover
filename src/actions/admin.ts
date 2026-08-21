@@ -725,6 +725,24 @@ export async function updateAdminUserAction(formData: FormData) {
   revalidatePath("/admin/users");
 }
 
+export async function removeAdminUserAction(formData: FormData) {
+  const current = await assertAdmin(["owner"]);
+  const id = String(formData.get("id") ?? "");
+  if (!/^[0-9a-f-]{36}$/i.test(id) || id === current.id) return;
+  const supabase = await createSupabaseServerClient();
+  await supabase.rpc("remove_admin_user", { p_profile_id: id });
+  revalidatePath("/admin/users");
+}
+
+export async function restoreAdminUserAction(formData: FormData) {
+  await assertAdmin(["owner"]);
+  const id = String(formData.get("id") ?? "");
+  if (!/^[0-9a-f-]{36}$/i.test(id)) return;
+  const supabase = await createSupabaseServerClient();
+  await supabase.from("profiles").update({ is_active: true }).eq("id", id);
+  revalidatePath("/admin/users");
+}
+
 export async function inviteAdminUserAction(
   _state: ActionState,
   formData: FormData,
