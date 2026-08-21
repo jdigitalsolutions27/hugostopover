@@ -49,6 +49,22 @@ test("contact form provides accessible validation feedback", async ({
   await expect(page.getByText("Please enter your name.")).toBeVisible();
 });
 
+test("visit map targets Hugo's exact Google Maps business listing", async ({
+  page,
+}) => {
+  await page.goto("/visit");
+  await expect(page.locator('iframe[title^="Map showing"]')).toHaveAttribute(
+    "src",
+    /Hugo%E2%80%99s%20Stop%20Over/,
+  );
+  await expect(
+    page.getByRole("link", { name: "Open in Maps" }),
+  ).toHaveAttribute(
+    "href",
+    "https://www.google.com/maps?cid=17066446012554236424",
+  );
+});
+
 test("admin dashboard is protected on the server", async ({ page }) => {
   await page.goto("/admin/products");
   await expect(page).toHaveURL(/\/admin\/login/);

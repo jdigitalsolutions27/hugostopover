@@ -226,9 +226,9 @@ export const seedBusinessSettings: BusinessSettings = {
   email: "",
   address: "Boundary of Sta. Fe and Alangalang, Leyte, Philippines",
   map_embed_url:
-    "https://www.google.com/maps?q=Boundary%20of%20Sta.%20Fe%20and%20Alangalang%2C%20Leyte&output=embed",
-  latitude: null,
-  longitude: null,
+    "https://www.google.com/maps?q=Hugo%E2%80%99s%20Stop%20Over%2C%20Zone%201%2C%20Alangalang%2C%206517%20Leyte&z=18&output=embed",
+  latitude: 11.1868,
+  longitude: 124.912317,
   opening_hours: [
     { days: "Tuesday–Sunday", hours: "7:00 AM–8:30 PM" },
     { days: "Monday", hours: "Closed" },
@@ -256,7 +256,6 @@ export const seedBusinessSettings: BusinessSettings = {
     "phone",
     "address",
     "opening_hours",
-    "map_location",
     "business_story",
     "product_copy",
     "prices",

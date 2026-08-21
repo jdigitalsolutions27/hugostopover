@@ -67,7 +67,14 @@ export default async function VisitPage() {
             <p>{locationDetails?.body || settings.address}</p>
             <Button asChild variant="outline" size="sm" className="mt-5">
               <a
-                href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(settings.address)}`}
+                href={
+                  locationDetails?.primary_cta_url ||
+                  `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+                    settings.latitude !== null && settings.longitude !== null
+                      ? `${settings.latitude},${settings.longitude}`
+                      : settings.address,
+                  )}`
+                }
                 target="_blank"
                 rel="noreferrer"
               >

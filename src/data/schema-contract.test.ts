@@ -33,6 +33,10 @@ const adminRemoval = readFileSync(
   resolve("supabase/migrations/202608210012_owner_remove_admin_access.sql"),
   "utf8",
 );
+const exactMapPin = readFileSync(
+  resolve("supabase/migrations/202608210013_exact_hugo_map_pin.sql"),
+  "utf8",
+);
 
 describe("database and seed contract", () => {
   it("contains every requested product exactly once", () => {
@@ -82,6 +86,15 @@ describe("database and seed contract", () => {
     expect(adminRemoval).toContain("grant execute");
     expect(adminActions).toMatch(
       /removeAdminUserAction[\s\S]+?assertAdmin\(\["owner"\]\)/,
+    );
+  });
+  it("uses Hugo's verified Google Maps business pin", () => {
+    expect(exactMapPin).toContain("11.186800");
+    expect(exactMapPin).toContain("124.912317");
+    expect(exactMapPin).toContain("Hugo%E2%80%99s%20Stop%20Over");
+    expect(exactMapPin).toContain("cid=17066446012554236424");
+    expect(exactMapPin).toContain(
+      "array_remove(needs_confirmation, 'map_location')",
     );
   });
   it("seeds uniform editable photo heroes and retires Gallery safely", () => {
